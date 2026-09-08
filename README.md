@@ -1,27 +1,32 @@
-# Howey · Chapel Lane — 3D World Model
+# Clawdd Glas · Howey — 3D World Model
 
-3D terrain world model of Howey village, near Llandrindod Wells, Powys, Wales (LD1 5PS).
+Photorealistic 3D world model of Clawdd Glas, Howey, near Llandrindod Wells, Powys, Wales (LD1 5PS).
+Half-mile (805 m) radius. Live site: https://dylan10028guy-2045.github.io/howey-chapel-lane/
 
 ## What it is
 
-- Real terrain from SRTM elevation data (~1.7 km × 1.1 km region, 150 m of relief sampled at ~4 m/cell)
-- 690 building footprints from OpenStreetMap, extruded with estimated heights
-- Satellite imagery (Esri World Imagery, zoom 17) draped over the terrain
-- All 72 OSM roads in the area extruded, including Chapel Road and the Brynteg estate road
-- Three Blender cameras: overview, close-up of the house at 52.220073, -3.388496, and street level
+- Real SRTM elevation terrain (1.1 km × 1.5 km, ~72 m of relief) draped with Esri World Imagery satellite tiles (zoom 17)
+- 690 building footprints from OpenStreetMap: rendered/brick facades with windows, slate gable roofs on houses, slate caps on larger blocks
+- ~230 reconstructed trees, country lanes in asphalt, draped onto the terrain
+- HDR daylight (Poly Haven, CC0) + sun, three Blender cameras: overview, Greenbanks close-up, street level
+- Interactive Three.js viewer: orbit, street-level walk (WASD), fly-around tour, Daylight / Late afternoon / Blue hour, Balanced / Ultra HD, 4K photo capture
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Site page: interactive viewer + render gallery |
-| `assets/howey-terrain.glb` | Interactive 3D model (model-viewer) |
+| `index.html` + `viewer.js` + `style.css` | Interactive tower-style viewer (Three.js via CDN) |
+| `assets/howey-terrain.glb` | Interactive 3D model with embedded PBR textures |
 | `assets/howey-terrain.blend` | Original Blender project |
-| `assets/overview.png/jpg`, `closeup.png/jpg`, `street.png/jpg` | Photorealistic Cycles renders (4K) |
+| `assets/site-info.json` | Building footprints (walk-mode collision), bounds, spawn |
+| `assets/daylight.hdr` | Environment lighting (Poly Haven, CC0) |
+| `assets/howey-ground.jpg` | Stitched satellite ground texture |
+| `assets/overview.png/jpg`, `closeup.png/jpg`, `street.png/jpg` | Cycles renders + posters |
 
 ## Attribution
 
-- Elevation: SRTM (public domain via AWS Open Data / Mapzen Skadi tiles)
+- Elevation: SRTM (public domain)
 - Buildings & roads: © OpenStreetMap contributors, ODbL
 - Imagery: Esri World Imagery
+- Daylight HDR: Poly Haven (CC0)
 - Built with Blender 5.2.1 (Cycles, OpenImageDenoise)
