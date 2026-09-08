@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Howey · Chapel Lane 3D World Model</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         margin: 0; background: #0f1115; color: #e8e8ea; }
+  header { padding: 2.4rem 1.2rem 1rem; text-align: center; }
+  h1 { margin: 0 0 .3rem; font-size: 1.7rem; letter-spacing: .02em; }
+  .sub { color: #9aa0a6; margin: 0; }
+  main { max-width: 1080px; margin: 0 auto; padding: 0 1.2rem 3rem; }
+  .viewer-wrap { margin: 1.6rem 0; border-radius: 14px; overflow: hidden;
+                 background:#000; box-shadow: 0 8px 32px rgba(0,0,0,.45); }
+  model-viewer { width: 100%; height: 72vh; display: block; background:#000; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+          gap: 1rem; margin-top: 2rem; }
+  figure { margin: 0; border-radius: 12px; overflow: hidden; background:#171a20; }
+  figure img { width: 100%; display: block; }
+  figcaption { padding: .6rem .8rem; font-size: .9rem; color: #c6c9ce; }
+  a { color: #7db4ff; }
+  .dl { text-align: center; margin-top: 1.6rem; font-size: .95rem; }
+  .meta { color: #9aa0a6; font-size: .82rem; text-align:center; margin-top: 2rem; line-height:1.6; }
+  code { background: #20242c; padding: .1em .4em; border-radius: 4px; }
+</style>
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>Howey &#183; Chapel Lane</h1>
+  <p class="sub">3D terrain world model of Howey village, Powys, Wales &#8212; LD1 5PS</p>
+</header>
+
+<main>
+  <section class="viewer-wrap">
+    <model-viewer src="assets/howey-terrain.glb"
+                  alt="Interactive 3D model of the Howey chapel-lane terrain"
+                  poster="assets/street.jpg"
+                  camera-controls shadow-intensity="1" exposure="1"
+                  camera-orbit="-35deg 55deg 420m" min-camera-orbit="auto -30deg 15m">
+    </model-viewer>
+  </section>
+
+  <p>Real <strong>SRTM elevation</strong> terrain with <strong>OSM building footprints</strong>
+     (690 buildings) and <strong>satellite imagery</strong>, covering the area from Providence
+     Baptist Chapel down through Howey village to the Brynteg estate. Modeled in Blender 5.2.</p>
+
+  <section class="grid">
+    <figure>
+      <a href="assets/overview.png" target="_blank"><img loading="lazy" src="assets/overview.jpg" alt="Overview render"></a>
+      <figcaption>Overview &#8212; chapel to village to Brynteg</figcaption>
+    </figure>
+    <figure>
+      <a href="assets/closeup.png" target="_blank"><img loading="lazy" src="assets/closeup.jpg" alt="Close-up render"></a>
+      <figcaption>Close-up of the house at 52.220073, -3.388496 ("Greenbanks")</figcaption>
+    </figure>
+    <figure>
+      <a href="assets/street.png" target="_blank"><img loading="lazy" src="assets/street.jpg" alt="Street-level render"></a>
+      <figcaption>Street level &#8212; looking from the lane toward the house</figcaption>
+    </figure>
+  </section>
+
+  <p class="dl"><a href="assets/howey-terrain.blend">Download the original Blender file (.blend)</a></p>
+
+  <p class="meta">
+    Center: 52.224131, -3.385788 &#183; House: 52.220073, -3.388496<br>
+    Data: &copy; OpenStreetMap contributors (ODbL) &#183; Esri World Imagery &#183; SRTM/NASADEM<br>
+    Renders: Blender 5.2 Cycles, denoised, 4K
+  </p>
+</main>
+</body>
+</html>
