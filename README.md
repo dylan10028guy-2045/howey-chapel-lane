@@ -24,4 +24,4 @@
 - Elevation: SRTM (public domain via AWS Open Data / Mapzen Skadi tiles)
 - Buildings & roads: © OpenStreetMap contributors, ODbL
 - Imagery: Esri World Imagery
-- Built with Blender 5.2.1 (Cycles, OpenImageDenoise)touched
+- Built with Blender 5.2.1 (Cycles, OpenImageDenoise)
