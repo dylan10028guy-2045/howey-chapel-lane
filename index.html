@@ -1,76 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Howey · Chapel Lane 3D World Model</title>
-<style>
-  :root { color-scheme: light dark; }
-  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-         margin: 0; background: #0f1115; color: #e8e8ea; }
-  header { padding: 2.4rem 1.2rem 1rem; text-align: center; }
-  h1 { margin: 0 0 .3rem; font-size: 1.7rem; letter-spacing: .02em; }
-  .sub { color: #9aa0a6; margin: 0; }
-  main { max-width: 1080px; margin: 0 auto; padding: 0 1.2rem 3rem; }
-  .viewer-wrap { margin: 1.6rem 0; border-radius: 14px; overflow: hidden;
-                 background:#000; box-shadow: 0 8px 32px rgba(0,0,0,.45); }
-  model-viewer { width: 100%; height: 72vh; display: block; background:#000; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-          gap: 1rem; margin-top: 2rem; }
-  figure { margin: 0; border-radius: 12px; overflow: hidden; background:#171a20; }
-  figure img { width: 100%; display: block; }
-  figcaption { padding: .6rem .8rem; font-size: .9rem; color: #c6c9ce; }
-  a { color: #7db4ff; }
-  .dl { text-align: center; margin-top: 1.6rem; font-size: .95rem; }
-  .meta { color: #9aa0a6; font-size: .82rem; text-align:center; margin-top: 2rem; line-height:1.6; }
-  code { background: #20242c; padding: .1em .4em; border-radius: 4px; }
-</style>
-<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<meta name="theme-color" content="#111b20">
+<meta name="description" content="Explore Clawdd Glas, Howey in 3D. Orbit the half-mile valley world, walk the lanes, photographed light.">
+<title>Clawdd Glas · Howey — 3D World</title>
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+}}
+</script>
 </head>
 <body>
-<header>
-  <h1>Clawdd Glas &#183; Howey</h1>
-  <p class="sub">Half-mile-radius 3D world model &#8212; Clawdd Glas, Howey, Powys, Wales (LD1 5PS)</p>
-</header>
-
-<main>
-  <section class="viewer-wrap">
-    <model-viewer src="assets/howey-terrain.glb"
-                  alt="Interactive 3D model of the Howey chapel-lane terrain"
-                  poster="assets/street.jpg"
-                  camera-controls shadow-intensity="1" exposure="1"
-                  camera-orbit="-35deg 55deg 420m" min-camera-orbit="auto -30deg 15m">
-    </model-viewer>
-  </section>
-
-  <p>Real <strong>SRTM elevation</strong> terrain with <strong>OSM building footprints</strong>
-     (690 buildings) and <strong>satellite imagery</strong>, covering a half-mile (805&#8201;m) radius
-     around Clawdd Glas &#8212; from Providence Baptist Chapel down through Howey village to the
-     Brynteg estate. Modeled in Blender 5.2.</p>
-
-  <section class="grid">
-    <figure>
-      <a href="assets/overview.png" target="_blank"><img loading="lazy" src="assets/overview.jpg" alt="Overview render"></a>
-      <figcaption>Overview &#8212; chapel to village to Brynteg</figcaption>
-    </figure>
-    <figure>
-      <a href="assets/closeup.png" target="_blank"><img loading="lazy" src="assets/closeup.jpg" alt="Close-up render"></a>
-      <figcaption>Close-up of the house at 52.220073, -3.388496 ("Greenbanks")</figcaption>
-    </figure>
-    <figure>
-      <a href="assets/street.png" target="_blank"><img loading="lazy" src="assets/street.jpg" alt="Street-level render"></a>
-      <figcaption>Street level &#8212; looking from the lane toward the house</figcaption>
-    </figure>
-  </section>
-
-  <p class="dl"><a href="assets/howey-terrain.blend">Download the original Blender file (.blend)</a></p>
-
-  <p class="meta">
-    Center: 52.224131, -3.385788 &#183; Clawdd Glas (LD1 5PS): 52.220583, -3.388337 &#183; Radius: &#189; mile (805&#8201;m)<br>
-    House: 52.220073, -3.388496<br>
-    Data: &copy; OpenStreetMap contributors (ODbL) &#183; Esri World Imagery &#183; SRTM/NASADEM<br>
-    Renders: Blender 5.2 Cycles, denoised, 4K
-  </p>
-</main>
+<main id="world" aria-label="Interactive 3D world"></main>
+<header><div class="eyebrow"><span class="live-dot"></span> CLAWDD GLAS · HOWEY · LD1 5PS</div><h1>Clawdd Glas</h1><p id="view-name">The valley, from every angle.</p></header>
+<div class="top-actions"><button id="info" aria-label="About this reconstruction">i</button><button id="fullscreen" aria-label="Toggle fullscreen">⛶</button></div>
+<div id="loading" role="status"><div class="loader-content"><span class="eyebrow">ENTER THE VALLEY</span><h2>A different perspective.</h2><p id="load-label">Loading the detailed world…</p><div class="track"><div id="progress"></div></div><button id="retry" hidden>Try again</button></div></div>
+<div id="compass" title="Geographic north">N<span>↑</span></div>
+<aside id="location"><span>52.220583° N &nbsp; 3.388337° W</span><span id="altitude">Aerial view</span></aside>
+<aside class="gallery" aria-label="Photographs">
+  <a href="./assets/overview.png" target="_blank"><img src="./assets/overview.jpg" alt="Aerial photograph"><span>Aerial</span></a>
+  <a href="./assets/closeup.png" target="_blank"><img src="./assets/closeup.jpg" alt="Greenbanks photograph"><span>Greenbanks</span></a>
+  <a href="./assets/street.png" target="_blank"><img src="./assets/street.jpg" alt="Lane photograph"><span>The lane</span></a>
+</aside>
+<nav aria-label="Explore the world"><div class="modes"><button id="orbit" class="active" aria-pressed="true">↻ <span>Orbit</span></button><button id="walk" aria-pressed="false">↟ <span>Street level</span></button></div><div class="divider"></div><button id="tour" aria-pressed="false">▶ <span>Fly around</span></button><button id="reset" title="Return to aerial view">⌖ <span>Reset</span></button><button id="settings" title="View settings">☷</button></nav>
+<div id="hint">Drag to orbit · Scroll to zoom · Right-drag to pan</div>
+<div id="move-controls" hidden aria-label="Move"><button data-move="forward" aria-label="Move forward">↑</button><div><button data-move="left" aria-label="Move left">←</button><button data-move="back" aria-label="Move backward">↓</button><button data-move="right" aria-label="Move right">→</button></div></div>
+<section id="settings-panel" class="panel" hidden><h2>Your view</h2><label>Light<select id="light"><option value="day">Daylight</option><option value="golden">Late afternoon</option><option value="evening">Blue hour</option></select></label><label>Detail<select id="quality"><option value="balanced">Balanced</option><option value="ultra">Ultra HD</option></select></label><button id="capture">Save a 4K photograph</button><a href="./assets/howey-terrain.glb" download>Download 3D model (.glb) ↗</a><a href="./assets/howey-terrain.blend" download>Open in Blender (.blend) ↗</a></section>
+<dialog id="about"><button class="close" aria-label="Close">×</button><span class="eyebrow">ABOUT THIS WORLD</span><h2>A place to explore.</h2><p>A contemporary reconstruction of the Clawdd Glas area of Howey, near Llandrindod Wells, Powys — a half-mile (805 m) radius of real SRTM terrain draped with satellite imagery.</p><p>Building positions use OpenStreetMap data retrieved September 2026. Houses carry rendered and brick facades with slate gable roofs; heights and window patterns are estimated, with unseen sides inferred. Trees, lanes and the valley floor are reconstructed planting and surfacing, not a survey of any individual property.</p><p>Orbit freely, drop to the lanes at eye level, or take the flying tour around the valley.</p><div class="source-links"><a href="https://www.openstreetmap.org/?mlat=52.220583&mlon=-3.388337#map=15/52.22058/-3.38834" target="_blank" rel="noopener">View real location ↗</a></div><p class="credits">Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL). Imagery © <a href="https://www.esri.com/">Esri World Imagery</a>. Elevation: SRTM. Daylight: <a href="https://polyhaven.com/a/kloppenheim_06_puresky">Poly Haven</a> (CC0). Approximate reconstruction, not survey-grade.</p></dialog>
+<div id="toast" role="status" hidden></div>
+<script type="module" src="./viewer.js"></script>
 </body>
 </html>
